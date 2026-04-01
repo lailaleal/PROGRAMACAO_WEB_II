@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class ProductController {
+public class ClassificacaoMaterialController {
 
     @GetMapping("/product")
     public String getMethodName() {
