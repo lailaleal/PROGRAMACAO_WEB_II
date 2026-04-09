@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Cadastrar Material</title>
+
+<link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+/>
+</head>
+<body>
+<div class="container pt-5">
+    <h1>Cadastrar Material</h1>
+
+    <form th:action="@{/classificacaoMaterial/save}" th:object="${material}" method="POST">
+        
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Título</label>
+            <div class="col-sm-10">
+                <input type="text" th:field="*{titulo}" class="form-control" placeholder="Digite o título">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Autor</label>
+            <div class="col-sm-10">
+                <input type="text" th:field="*{autor}" class="form-control" placeholder="Digite o autor">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Ano</label>
+            <div class="col-sm-10">
+                <input type="number" th:field="*{ano}" class="form-control" placeholder="Digite o ano">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Quantidade</label>
+            <div class="col-sm-10">
+                <input type="number" th:field="*{quantidade}" class="form-control" placeholder="Digite a quantidade">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-info col-3">Cadastrar Material</button>
+    </form>
+</div>
+</body>
+</html>
