@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Listagem do Acervo</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container pt-5">
+
+      <!-- BOTÃO CADASTRAR -->
+      <a th:href="@{/novo}" class="btn btn-primary mb-3">
+        Cadastrar Acervo
+      </a>
+
+      <h1>Listagem do Acervo</h1>
+
+      <!-- TABELA -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Tipo</th>
+            <th>Ano</th>
+            <th>Quantidade</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="acervo : ${listaAcervo}">
+            <td th:text="${acervo.titulo}"></td>
+            <td th:text="${acervo.autor}"></td>
+            <td th:text="${acervo.tipo}"></td>
+            <td th:text="${acervo.ano}"></td>
+            <td th:text="${acervo.quantidade}"></td>
+
+            <td>
+              <a th:href="@{'/editar/' + ${acervo.id}}" class="btn btn-warning btn-sm">
+                Editar
+              </a>
+
+              <a th:href="@{'/deletar/' + ${acervo.id}}"
+                 class="btn btn-danger btn-sm"
+                 onclick="return confirm('Tem certeza que deseja excluir?')">
+                 Excluir
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </body>
+</html>

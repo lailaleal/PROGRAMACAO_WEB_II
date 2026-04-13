@@ -2,7 +2,7 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Cadastrar Material</title>
+<title>Cadastrar Acervo</title>
 
 <link
     rel="stylesheet"
@@ -11,10 +11,12 @@
 </head>
 <body>
 <div class="container pt-5">
-    <h1>Cadastrar Material</h1>
+    <h1>Cadastrar Acervo</h1>
 
-    <form th:action="@{/classificacaoMaterial/save}" th:object="${material}" method="POST">
+    <form th:action="@{/salvar}" th:object="${acervo}" method="POST">
         
+        <input type="hidden" th:field="*{id}" />
+
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Título</label>
             <div class="col-sm-10">
@@ -26,6 +28,14 @@
             <label class="col-sm-2 col-form-label">Autor</label>
             <div class="col-sm-10">
                 <input type="text" th:field="*{autor}" class="form-control" placeholder="Digite o autor">
+            </div>
+        </div>
+
+        <!-- NOVO CAMPO -->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Tipo</label>
+            <div class="col-sm-10">
+                <input type="text" th:field="*{tipo}" class="form-control" placeholder="Livro, Artigo, Vídeo...">
             </div>
         </div>
 
@@ -43,7 +53,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-info col-3">Cadastrar Material</button>
+        <button type="submit" class="btn btn-info col-3">Salvar</button>
     </form>
 </div>
 </body>
