@@ -13,7 +13,7 @@
 <div class="container pt-5">
     <h1>Cadastrar Acervo</h1>
 
-    <form th:action="@{/salvar}" th:object="${acervo}" method="POST">
+    <form th:action="@{/acervo/save}" th:object="${acervo}" method="POST">
         
         <input type="hidden" th:field="*{id}" />
 
@@ -31,7 +31,6 @@
             </div>
         </div>
 
-        <!-- NOVO CAMPO -->
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Tipo</label>
             <div class="col-sm-10">

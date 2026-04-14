@@ -1,6 +1,10 @@
 package br.edu.iftm.biblioteca.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "acervo")
@@ -10,15 +14,21 @@ public class Acervo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "O título é obrigatório")
+    @Size(min = 3, max = 100, message = "O título deve ter entre 3 e 100 caracteres")
     @Column(nullable = false)
     private String titulo;
 
+    @Size(max = 100, message = "O autor deve ter no máximo 100 caracteres")
     private String autor;
 
-    private String tipo; // NOVO CAMPO
+    @NotBlank(message = "O tipo é obrigatório (Livro, Artigo, Vídeo...)")
+    private String tipo;
 
     private Integer ano;
 
+    @NotNull(message = "A quantidade é obrigatória")
+    @Min(value = 0, message = "A quantidade não pode ser negativa")
     @Column(nullable = false)
     private Integer quantidade;
 
