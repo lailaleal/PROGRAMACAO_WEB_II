@@ -32,10 +32,18 @@ public class Acervo {
     @Column(nullable = false)
     private Integer quantidade;
 
+    // NOVO CAMPO PARA URL DA IMAGEM
+    @Column(length = 500)
+    private String urlImagem;
+
     // GETTERS E SETTERS
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -76,5 +84,14 @@ public class Acervo {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    // GETTER E SETTER PARA urlImagem
+    public String getUrlImagem() {
+        return urlImagem;
+    }
+
+    public void setUrlImagem(String urlImagem) {
+        this.urlImagem = urlImagem;
     }
 }

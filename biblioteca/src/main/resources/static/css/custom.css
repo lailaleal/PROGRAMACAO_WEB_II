@@ -1,0 +1,571 @@
+/* ===== IMPORTAÇÃO DE FONTES GOOGLE ===== */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* ===== VARIÁVEIS COM A NOVA PALETA ===== */
+:root {
+    /* Cores principais - Paleta Elegante */
+    --verde-floresta: #004d40;
+    --dourado-champagne: #c5a059;
+    --azul-noturno: #1a237e;
+    --off-white: #f9f9f7;
+    
+    /* Cores secundárias */
+    --verde-escuro: #00332a;
+    --dourado-claro: #d4b06a;
+    --azul-profundo: #0f1558;
+    --cinza-suave: #e8e4df;
+    --texto-escuro: #2c2c2c;
+    --texto-claro: #f5f5f5;
+
+    /* Sombras */
+    --sombra-leve: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --sombra-media: 0 8px 24px rgba(0, 0, 0, 0.1);
+    --sombra-dourada: 0 0 12px rgba(197, 160, 89, 0.3);
+    --sombra-dourada-forte: 0 0 20px rgba(197, 160, 89, 0.4);
+    
+    /* Transições suaves */
+    --transicao: all 0.3s ease;
+    --transicao-rapida: all 0.2s ease;
+    
+    /* Espaçamentos generosos */
+    --espacamento-padrao: 2rem;
+    --espacamento-pequeno: 1rem;
+    --espacamento-grande: 3rem;
+}
+
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+/* ===== ESTRUTURA GLOBAL ===== */
+body {
+    background-color: var(--off-white);
+    color: var(--texto-escuro);
+    font-family: 'Montserrat', 'Segoe UI', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--espacamento-padrao);
+}
+
+/* ===== TIPOGRAFIA SERIFADA PARA TÍTULOS ===== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    color: var(--azul-noturno);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: 2.5rem;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--dourado-champagne), var(--verde-floresta));
+    border-radius: 2px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* ===== NAVBAR PROFISSIONAL ===== */
+.navbar {
+    background: linear-gradient(135deg, var(--verde-floresta) 0%, var(--verde-escuro) 100%) !important;
+    box-shadow: var(--sombra-media);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--dourado-champagne) !important;
+    letter-spacing: -0.5px;
+    transition: var(--transicao);
+}
+
+.navbar-brand:hover {
+    color: var(--dourado-claro) !important;
+    transform: scale(1.02);
+}
+
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    margin: 0 0.5rem;
+    transition: var(--transicao);
+    position: relative;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--dourado-champagne) !important;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--dourado-champagne);
+    transition: var(--transicao);
+    transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 80%;
+}
+
+/* ===== BOTÕES COM MICRO-INTERAÇÕES ===== */
+.btn {
+    border-radius: 8px;
+    padding: 0.75rem 1.8rem;
+    font-weight: 600;
+    transition: var(--transicao);
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary {
+    background-color: var(--verde-floresta);
+    border-color: var(--verde-floresta);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 77, 64, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: var(--verde-escuro);
+    border-color: var(--verde-escuro);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-dourada);
+}
+
+.btn-outline-gold {
+    background-color: transparent;
+    border: 2px solid var(--dourado-champagne);
+    color: var(--dourado-champagne);
+}
+
+.btn-outline-gold:hover {
+    background-color: var(--dourado-champagne);
+    color: var(--azul-noturno);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-dourada);
+}
+
+.btn-info {
+    background-color: var(--azul-noturno);
+    border-color: var(--azul-noturno);
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: var(--azul-profundo);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 35, 126, 0.3);
+}
+
+.btn-warning {
+    background-color: var(--dourado-champagne);
+    border-color: var(--dourado-champagne);
+    color: var(--azul-noturno);
+}
+
+.btn-warning:hover {
+    background-color: var(--dourado-claro);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-dourada);
+}
+
+.btn-danger {
+    color: white;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+/* ===== CARDS DE LIVROS COM HOVER DOURADO ===== */
+.livros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.card-livro {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--sombra-leve);
+    transition: var(--transicao);
+    cursor: pointer;
+    position: relative;
+}
+
+.card-livro:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--sombra-dourada-forte);
+}
+
+.card-livro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--dourado-champagne), var(--verde-floresta));
+    transform: scaleX(0);
+    transition: var(--transicao);
+}
+
+.card-livro:hover::before {
+    transform: scaleX(1);
+}
+
+.card-livro-img-wrapper {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--verde-floresta), var(--azul-noturno));
+}
+
+.card-livro-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transicao);
+}
+
+.card-livro:hover .card-livro-img {
+    transform: scale(1.08);
+}
+
+.card-livro-content {
+    padding: 1.5rem;
+}
+
+.card-livro-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--azul-noturno);
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.card-livro-autor {
+    font-size: 0.9rem;
+    color: var(--dourado-champagne);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.card-livro-ano {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 0.5rem;
+}
+
+.badge-tipo {
+    background-color: var(--dourado-champagne);
+    color: var(--azul-noturno);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+}
+
+/* ===== TABELA ELEGANTE ===== */
+.table {
+    background-color: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--sombra-leve);
+    margin-bottom: 2rem;
+}
+
+.table thead {
+    background: linear-gradient(135deg, var(--verde-floresta) 0%, var(--verde-escuro) 100%);
+    color: white;
+    font-family: 'Playfair Display', serif;
+}
+
+.table thead th {
+    padding: 1.2rem;
+    font-weight: 600;
+    border: none;
+}
+
+.table tbody tr {
+    transition: var(--transicao-rapida);
+    border-bottom: 1px solid var(--cinza-suave);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(197, 160, 89, 0.08);
+    transform: scale(1.01);
+    box-shadow: var(--sombra-leve);
+}
+
+/* ===== FORMULÁRIOS REFINADOS ===== */
+.form-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: var(--sombra-media);
+    margin: 2rem 0;
+}
+
+.form-group {
+    margin-bottom: 1.8rem;
+}
+
+label {
+    font-weight: 600;
+    color: var(--azul-noturno);
+    margin-bottom: 0.75rem;
+    display: block;
+    font-size: 0.95rem;
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 2px solid var(--cinza-suave);
+    padding: 0.8rem 1rem;
+    transition: var(--transicao);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-control:focus {
+    border-color: var(--dourado-champagne);
+    box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2);
+    outline: none;
+}
+
+.form-control:hover {
+    border-color: var(--dourado-champagne);
+}
+
+/* ===== ESPAÇAMENTO E WHITE SPACE ===== */
+.espacamento-generoso {
+    padding: var(--espacamento-grande);
+    margin-bottom: var(--espacamento-grande);
+}
+
+.secao {
+    margin-bottom: var(--espacamento-grande);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background: linear-gradient(135deg, var(--verde-floresta) 0%, var(--verde-escuro) 100%);
+    color: var(--texto-claro);
+    text-align: center;
+    padding: 2rem;
+    margin-top: auto;
+}
+
+.footer a {
+    color: var(--dourado-champagne);
+    text-decoration: none;
+    transition: var(--transicao);
+}
+
+.footer a:hover {
+    color: var(--dourado-claro);
+    text-decoration: underline;
+}
+
+/* ===== MODO ESCURO ===== */
+body.dark-mode {
+    background-color: #0a0e2a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container,
+body.dark-mode .form-container,
+body.dark-mode .table,
+body.dark-mode .card-livro {
+    background-color: #11163f;
+    color: #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode label {
+    color: var(--dourado-champagne);
+}
+
+body.dark-mode .card-livro-titulo {
+    color: var(--dourado-claro);
+}
+
+body.dark-mode .table tbody tr:hover {
+    background-color: rgba(197, 160, 89, 0.15);
+}
+
+body.dark-mode .form-control {
+    background-color: #1a1f4a;
+    border-color: #2a2f5a;
+    color: white;
+}
+
+body.dark-mode .form-control:focus {
+    border-color: var(--dourado-champagne);
+    box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.3);
+}
+
+/* ===== ANIMAÇÕES E MICRO-INTERAÇÕES ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glowDourado {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(197, 160, 89, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(197, 160, 89, 0.6);
+    }
+}
+
+.fade-in {
+    animation: fadeInUp 0.6s ease;
+}
+
+.glow-on-hover:hover {
+    animation: glowDourado 1.5s infinite;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .livros-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .form-container {
+        padding: 1.5rem;
+    }
+}
+
+/* ===== UTILITÁRIOS ===== */
+.text-gold {
+    color: var(--dourado-champagne);
+}
+
+.text-navy {
+    color: var(--azul-noturno);
+}
+
+.bg-gold {
+    background-color: var(--dourado-champagne);
+}
+
+.bg-navy {
+    background-color: var(--azul-noturno);
+}
+
+.bg-forest {
+    background-color: var(--verde-floresta);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--off-white);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--dourado-champagne);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--verde-floresta);
+}

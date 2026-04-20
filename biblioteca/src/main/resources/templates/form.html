@@ -2,58 +2,322 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Cadastrar Acervo</title>
+<title th:text="${acervo.id} ? 'Editar Acervo' : 'Cadastrar Acervo'">Cadastrar Acervo</title>
 
-<link
-    rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-/>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+
+<!-- Font Awesome para ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+<!-- Seu CSS Profissional -->
+<link rel="stylesheet" th:href="@{/css/custom.css}" />
 </head>
+
 <body>
-<div class="container pt-5">
-    <h1>Cadastrar Acervo</h1>
+<!-- NAVBAR PROFISSIONAL -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-book-open"></i> Biblioteca Livre
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/acervo/list">
+                        <i class="fas fa-book"></i> Acervo
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/acervo/create">
+                        <i class="fas fa-plus-circle"></i> Cadastrar
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-    <form th:action="@{/acervo/save}" th:object="${acervo}" method="POST">
-        
-        <input type="hidden" th:field="*{id}" />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- CARD DO FORMULÁRIO -->
+            <div class="form-container fade-in">
+                <div class="text-center mb-4">
+                    <i class="fas fa-book" style="font-size: 3rem; color: var(--dourado-champagne);"></i>
+                    <h1 th:text="${acervo.id} ? '✏️ Editar Acervo' : '📖 Novo Acervo'" class="mt-3">
+                        Cadastrar Acervo
+                    </h1>
+                    <p class="text-muted">
+                        Preencha os dados do material para adicionar ao catálogo
+                    </p>
+                </div>
 
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Título</label>
-            <div class="col-sm-10">
-                <input type="text" th:field="*{titulo}" class="form-control" placeholder="Digite o título">
+                <form th:action="@{/acervo/save}" th:object="${acervo}" method="POST">
+                    <input type="hidden" th:field="*{id}" />
+
+                    <!-- Campo Título -->
+                    <div class="form-group">
+                        <label for="titulo">
+                            <i class="fas fa-heading"></i> Título *
+                        </label>
+                        <input type="text" 
+                               th:field="*{titulo}" 
+                               class="form-control" 
+                               id="titulo"
+                               placeholder="Digite o título do material"
+                               required>
+                        <small class="form-text text-muted">Ex: Dom Casmurro, O Alquimista, etc.</small>
+                    </div>
+
+                    <!-- Campo Autor -->
+                    <div class="form-group">
+                        <label for="autor">
+                            <i class="fas fa-user"></i> Autor *
+                        </label>
+                        <input type="text" 
+                               th:field="*{autor}" 
+                               class="form-control" 
+                               id="autor"
+                               placeholder="Digite o nome do autor"
+                               required>
+                        <small class="form-text text-muted">Nome completo do autor ou organizador</small>
+                    </div>
+
+                    <!-- Campo Tipo -->
+                    <div class="form-group">
+                        <label for="tipo">
+                            <i class="fas fa-tag"></i> Tipo *
+                        </label>
+                        <select th:field="*{tipo}" class="form-control" id="tipo" required>
+                            <option value="">Selecione o tipo...</option>
+                            <option value="Livro">📚 Livro</option>
+                            <option value="Artigo">📄 Artigo</option>
+                            <option value="Vídeo">🎥 Vídeo</option>
+                            <option value="Tese">📖 Tese</option>
+                            <option value="Periódico">📰 Periódico</option>
+                        </select>
+                    </div>
+
+                    <!-- Campo Ano -->
+                    <div class="form-group">
+                        <label for="ano">
+                            <i class="far fa-calendar-alt"></i> Ano de Publicação *
+                        </label>
+                        <input type="number" 
+                               th:field="*{ano}" 
+                               class="form-control" 
+                               id="ano"
+                               placeholder="Digite o ano"
+                               min="1000" 
+                               max="2025"
+                               required>
+                        <small class="form-text text-muted">Ano de publicação (ex: 2024)</small>
+                    </div>
+
+                    <!-- Campo Quantidade -->
+                    <div class="form-group">
+                        <label for="quantidade">
+                            <i class="fas fa-copy"></i> Quantidade em Estoque *
+                        </label>
+                        <input type="number" 
+                               th:field="*{quantidade}" 
+                               class="form-control" 
+                               id="quantidade"
+                               placeholder="Digite a quantidade disponível"
+                               min="0"
+                               required>
+                        <small class="form-text text-muted">Número de exemplares disponíveis</small>
+                    </div>
+
+                    <!-- Campo URL da Imagem -->
+                    <div class="form-group">
+                        <label for="urlImagem">
+                            <i class="fas fa-image"></i> URL da Imagem (Capa do Livro)
+                        </label>
+                        <input type="url" 
+                               th:field="*{urlImagem}" 
+                               class="form-control" 
+                               id="urlImagem"
+                               placeholder="https://exemplo.com/capa-livro.jpg">
+                        <small class="form-text text-muted">
+                            <i class="fas fa-info-circle"></i> Dica: Use URLs de imagens online ou 
+                            <a href="https://via.placeholder.com/300x400?text=Capa+do+Livro" target="_blank">placeholder</a>
+                        </small>
+                        
+                        <!-- Pré-visualização da imagem -->
+                        <div class="mt-3" id="previewContainer" style="display: none;">
+                            <label>📸 Pré-visualização:</label>
+                            <div style="border: 2px solid var(--dourado-champagne); border-radius: 8px; padding: 10px; display: inline-block;">
+                                <img id="imagePreview" src="" alt="Prévia da capa" 
+                                     style="max-width: 200px; max-height: 200px; border-radius: 4px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botões do Formulário -->
+                    <div class="form-group text-center mt-5">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-save"></i> Salvar Acervo
+                        </button>
+                        <a href="/acervo/list" class="btn btn-outline-gold btn-lg ml-2">
+                            <i class="fas fa-arrow-left"></i> Voltar
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
-
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Autor</label>
-            <div class="col-sm-10">
-                <input type="text" th:field="*{autor}" class="form-control" placeholder="Digite o autor">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Tipo</label>
-            <div class="col-sm-10">
-                <input type="text" th:field="*{tipo}" class="form-control" placeholder="Livro, Artigo, Vídeo...">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Ano</label>
-            <div class="col-sm-10">
-                <input type="number" th:field="*{ano}" class="form-control" placeholder="Digite o ano">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Quantidade</label>
-            <div class="col-sm-10">
-                <input type="number" th:field="*{quantidade}" class="form-control" placeholder="Digite a quantidade">
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-info col-3">Salvar</button>
-    </form>
+    </div>
 </div>
+
+<!-- BOTÃO MODO ESCURO FLUTUANTE -->
+<button class="btn btn-outline-gold" onclick="toggleDarkMode()" 
+        style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; border-radius: 50px; box-shadow: var(--sombra-media);">
+    <i class="fas fa-moon"></i> Modo Escuro
+</button>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <p class="mb-0">
+            <i class="fas fa-copyright"></i> 2024 Biblioteca Livre - 
+            <a href="/">Sistema de Gerenciamento de Acervo</a>
+        </p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// Pré-visualização da imagem
+const urlImagemInput = document.getElementById('urlImagem');
+const previewContainer = document.getElementById('previewContainer');
+const imagePreview = document.getElementById('imagePreview');
+
+if(urlImagemInput) {
+    urlImagemInput.addEventListener('input', function() {
+        const url = this.value.trim();
+        
+        if(url && (url.startsWith('http://') || url.startsWith('https://'))) {
+            imagePreview.src = url;
+            previewContainer.style.display = 'block';
+            
+            // Se a imagem não carregar, mostra fallback
+            imagePreview.onerror = function() {
+                this.src = 'https://via.placeholder.com/200x300?text=Imagem+Não+Encontrada';
+                this.alt = 'Imagem não disponível';
+            };
+        } else {
+            previewContainer.style.display = 'none';
+            imagePreview.src = '';
+        }
+    });
+}
+
+// Modo Escuro
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    
+    const btn = document.querySelector('button[onclick="toggleDarkMode()"] i');
+    if(document.body.classList.contains('dark-mode')) {
+        btn.className = 'fas fa-sun';
+    } else {
+        btn.className = 'fas fa-moon';
+    }
+}
+
+// Carregar preferência do modo escuro
+if(localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
+    const btn = document.querySelector('button[onclick="toggleDarkMode()"] i');
+    if(btn) btn.className = 'fas fa-sun';
+}
+
+// Se estiver editando e tiver imagem, mostra prévia
+window.addEventListener('DOMContentLoaded', function() {
+    const urlExistente = document.getElementById('urlImagem').value;
+    if(urlExistente && (urlExistente.startsWith('http://') || urlExistente.startsWith('https://'))) {
+        imagePreview.src = urlExistente;
+        previewContainer.style.display = 'block';
+    }
+});
+</script>
+
+<style>
+/* Estilos adicionais específicos do formulário */
+.form-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: var(--sombra-media);
+    margin: 2rem 0;
+    transition: var(--transicao);
+}
+
+.form-container:hover {
+    box-shadow: var(--sombra-dourada);
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn-lg {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.ml-2 {
+    margin-left: 0.5rem;
+}
+
+/* Estilo para o campo de URL */
+#urlImagem {
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+/* Placeholder em itálico */
+.form-control::placeholder {
+    font-style: italic;
+    color: #999;
+}
+
+/* Melhorias no modo escuro */
+body.dark-mode .form-container {
+    background: #11163f;
+}
+
+body.dark-mode .text-muted {
+    color: #aaa !important;
+}
+
+body.dark-mode .form-text {
+    color: #aaa !important;
+}
+
+body.dark-mode #previewContainer div {
+    background: #1a1f4a;
+}
+</style>
+
 </body>
 </html>

@@ -2,61 +2,260 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Listagem do Acervo</title>
+<title>Biblioteca - Acervo Digital</title>
 
-<link
-    rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-/>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+
+<!-- Font Awesome para ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+<!-- Seu CSS Profissional -->
+<link rel="stylesheet" th:href="@{/css/custom.css}" />
 </head>
 
 <body>
-<div class="container pt-5">
-
-    <!-- BOTÃO CADASTRAR -->
-    <a th:href="@{/acervo/create}" class="btn btn-primary mb-3">
-        Cadastrar Acervo
-    </a>
-
-    <h1>Listagem do Acervo</h1>
-
-    <!-- TABELA -->
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>Autor</th>
-                <th>Tipo</th>
-                <th>Ano</th>
-                <th>Quantidade</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr th:each="acervo : ${listaAcervo}">
-                <td th:text="${acervo.titulo}"></td>
-                <td th:text="${acervo.autor}"></td>
-                <td th:text="${acervo.tipo}"></td>
-                <td th:text="${acervo.ano}"></td>
-                <td th:text="${acervo.quantidade}"></td>
-
-                <td>
-                    <a th:href="@{'/acervo/edit/' + ${acervo.id}}"
-                       class="btn btn-warning btn-sm">
-                        Editar
+<!-- NAVBAR PROFISSIONAL -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-book-open"></i> Biblioteca Livre
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/acervo/list">
+                        <i class="fas fa-book"></i> Acervo
                     </a>
-
-                    <a th:href="@{'/acervo/delete/' + ${acervo.id}}"
-                       class="btn btn-danger btn-sm"
-                       onclick="return confirm('Tem certeza que deseja excluir?')">
-                        Excluir
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/acervo/create">
+                        <i class="fas fa-plus-circle"></i> Cadastrar
                     </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
+<div class="container">
+    <!-- CABEÇALHO -->
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div>
+            <h1>📚 Acervo Digital</h1>
+            <p class="text-muted">Gerencie seu catálogo de livros e materiais</p>
+        </div>
+        <a th:href="@{/acervo/create}" class="btn btn-primary mt-2 mt-sm-0">
+            <i class="fas fa-plus"></i> Novo Acervo
+        </a>
+    </div>
+
+    <!-- GRID DE LIVROS COM IMAGENS -->
+    <div class="livros-grid">
+        <div th:each="acervo : ${listaAcervo}" class="card-livro fade-in">
+            <!-- Verifica se tem imagem -->
+            <div th:if="${acervo.urlImagem != null and acervo.urlImagem != ''}" 
+                 class="card-livro-img-wrapper">
+                <img th:src="${acervo.urlImagem}" 
+                     th:alt="${acervo.titulo}"
+                     class="card-livro-img"
+                     onerror="this.onerror=null; this.src='https://via.placeholder.com/300x400?text=Capa+Não+Disponível'">
+            </div>
+            <!-- Fallback quando não tem imagem -->
+            <div th:unless="${acervo.urlImagem != null and acervo.urlImagem != ''}" 
+                 class="card-livro-img" 
+                 style="background: linear-gradient(135deg, var(--verde-floresta), var(--azul-noturno)); display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-book" style="font-size: 4rem; color: var(--dourado-champagne);"></i>
+            </div>
+            
+            <div class="card-livro-content">
+                <div class="card-livro-titulo" th:text="${acervo.titulo}">Título do Livro</div>
+                <div class="card-livro-autor">
+                    <i class="fas fa-user"></i> <span th:text="${acervo.autor}">Autor</span>
+                </div>
+                <div class="mb-2">
+                    <span class="badge-tipo">
+                        <i class="fas fa-tag"></i> <span th:text="${acervo.tipo}">Tipo</span>
+                    </span>
+                </div>
+                <div class="card-livro-ano">
+                    <i class="far fa-calendar-alt"></i> Ano: <span th:text="${acervo.ano}">2024</span>
+                </div>
+                <div class="card-livro-ano mt-1">
+                    <i class="fas fa-copy"></i> Quantidade: <span th:text="${acervo.quantidade}">0</span>
+                </div>
+                <div class="mt-3 d-flex gap-2">
+                    <a th:href="@{'/acervo/edit/' + ${acervo.id}}" 
+                       class="btn btn-sm btn-outline-gold">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <a th:href="@{'/acervo/delete/' + ${acervo.id}}" 
+                       class="btn btn-sm btn-danger"
+                       onclick="return confirm('Tem certeza que deseja excluir este item?')">
+                        <i class="fas fa-trash"></i> Excluir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MENSAGEM QUANDO NÃO HÁ DADOS -->
+    <div th:if="${#lists.isEmpty(listaAcervo)}" class="text-empty text-center">
+        <i class="fas fa-book-open" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+        <p>Nenhum item cadastrado no acervo ainda.</p>
+        <a th:href="@{/acervo/create}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Cadastrar primeiro item
+        </a>
+    </div>
 </div>
+
+<!-- BOTÃO MODO ESCURO FLUTUANTE -->
+<button class="btn btn-outline-gold" onclick="toggleDarkMode()" 
+        style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; border-radius: 50px; box-shadow: var(--sombra-media);">
+    <i class="fas fa-moon"></i> Modo Escuro
+</button>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <p class="mb-0">
+            <i class="fas fa-copyright"></i> 2024 Biblioteca Livre - 
+            <a href="/">Sistema de Gerenciamento de Acervo</a>
+        </p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    
+    const btn = document.querySelector('button[onclick="toggleDarkMode()"] i');
+    if(document.body.classList.contains('dark-mode')) {
+        btn.className = 'fas fa-sun';
+        btn.parentElement.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+    } else {
+        btn.className = 'fas fa-moon';
+        btn.parentElement.innerHTML = '<i class="fas fa-moon"></i> Modo Escuro';
+    }
+}
+
+// Carregar preferência salva
+if(localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
+    const btn = document.querySelector('button[onclick="toggleDarkMode()"] i');
+    if(btn) {
+        btn.className = 'fas fa-sun';
+        btn.parentElement.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+    }
+}
+
+// Animação fade-in para cards
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.card-livro');
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.opacity = '1';
+        }, index * 100);
+    });
+});
+</script>
+
+<style>
+/* Estilos adicionais para melhorar o visual */
+.gap-2 {
+    gap: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-livro {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+/* Garantia do grid responsivo */
+.livros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 768px) {
+    .livros-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .livros-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Estilo para a badge */
+.badge-tipo {
+    background-color: var(--dourado-champagne);
+    color: var(--azul-noturno);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* Hover nos cards */
+.card-livro:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--sombra-dourada-forte);
+}
+
+.card-livro-img-wrapper {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--verde-floresta), var(--azul-noturno));
+}
+
+.card-livro-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.card-livro:hover .card-livro-img {
+    transform: scale(1.08);
+}
+
+/* Modo escuro */
+body.dark-mode .badge-tipo {
+    background-color: var(--dourado-champagne);
+    color: var(--azul-noturno);
+}
+
+body.dark-mode .card-livro {
+    background-color: #11163f;
+}
+
+body.dark-mode .card-livro-titulo {
+    color: var(--dourado-claro);
+}
+</style>
+
 </body>
 </html>
