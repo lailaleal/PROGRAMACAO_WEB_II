@@ -24,14 +24,14 @@ public class AcervoController {
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("listaAcervo", service.listarTodos());
-        return "index";
+        return "product/index";
     }
 
     // 🔹 ABRIR FORMULÁRIO
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("acervo", new Acervo());
-        return "form";
+        return "product/create";
     }
 
     // 🔹 SALVAR (com validação)
@@ -42,7 +42,7 @@ public class AcervoController {
 
         if (result.hasErrors()) {
             model.addAttribute("acervo", acervo);
-            return "form";
+            return "product/create";  // ✅ ASPAS CORRIGIDAS
         }
 
         service.salvar(acervo);
@@ -53,7 +53,7 @@ public class AcervoController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("acervo", service.buscarPorId(id));
-        return "form";
+        return "product/create";  // ✅ Redireciona para o mesmo formulário
     }
 
     // 🔹 DELETAR

@@ -6,13 +6,9 @@
 <div th:replace="~{fragments/head :: header}"></div>
 
 <div class="container">
-    <!-- CABEÇALHO -->
-    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
-        <div>
-            <h1>📚 Acervo Digital</h1>
-            <p class="text-muted">Gerencie seu catálogo de livros e materiais</p>
-        </div>
-        <a th:href="@{/acervo/create}" class="btn btn-primary mt-2 mt-sm-0">
+    <!-- CABEÇALHO - APENAS O BOTÃO -->
+    <div class="d-flex justify-content-end mb-4">
+        <a th:href="@{/acervo/create}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Novo Acervo
         </a>
     </div>
