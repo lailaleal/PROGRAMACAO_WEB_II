@@ -1,45 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8" />
-<title>Biblioteca - Acervo Digital</title>
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
-
-<!-- Font Awesome para ícones -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-
-<!-- Seu CSS Profissional -->
-<link rel="stylesheet" th:href="@{/css/custom.css}" />
-</head>
-
+<head th:replace="~{fragments/head :: head('Acervo Digital')}"></head>
 <body>
-<!-- NAVBAR PROFISSIONAL -->
-<nav class="navbar navbar-expand-lg">
-    <div class="container">
-        <a class="navbar-brand" href="/">
-            <i class="fas fa-book-open"></i> Biblioteca Livre
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/acervo/list">
-                        <i class="fas fa-book"></i> Acervo
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/acervo/create">
-                        <i class="fas fa-plus-circle"></i> Cadastrar
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+
+<div th:replace="~{fragments/head :: header}"></div>
 
 <div class="container">
     <!-- CABEÇALHO -->
@@ -112,61 +76,9 @@
     </div>
 </div>
 
-<!-- BOTÃO MODO ESCURO FLUTUANTE -->
-<button class="btn btn-outline-gold" onclick="toggleDarkMode()" 
-        style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; border-radius: 50px; box-shadow: var(--sombra-media);">
-    <i class="fas fa-moon"></i> Modo Escuro
-</button>
-
-<!-- FOOTER -->
-<footer class="footer">
-    <div class="container">
-        <p class="mb-0">
-            <i class="fas fa-copyright"></i> 2024 Biblioteca Livre - 
-            <a href="/">Sistema de Gerenciamento de Acervo</a>
-        </p>
-    </div>
-</footer>
-
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-    
-    const btn = document.querySelector('button[onclick="toggleDarkMode()"] i');
-    if(document.body.classList.contains('dark-mode')) {
-        btn.className = 'fas fa-sun';
-        btn.parentElement.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
-    } else {
-        btn.className = 'fas fa-moon';
-        btn.parentElement.innerHTML = '<i class="fas fa-moon"></i> Modo Escuro';
-    }
-}
-
-// Carregar preferência salva
-if(localStorage.getItem('darkMode') === 'true') {
-    document.body.classList.add('dark-mode');
-    const btn = document.querySelector('button[onclick="toggleDarkMode()"] i');
-    if(btn) {
-        btn.className = 'fas fa-sun';
-        btn.parentElement.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
-    }
-}
-
-// Animação fade-in para cards
-document.addEventListener('DOMContentLoaded', function() {
-    const cards = document.querySelectorAll('.card-livro');
-    cards.forEach((card, index) => {
-        setTimeout(() => {
-            card.style.opacity = '1';
-        }, index * 100);
-    });
-});
-</script>
+<div th:replace="~{fragments/darkmode-btn :: darkmode-btn}"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
 
 <style>
 /* Estilos adicionais para melhorar o visual */
