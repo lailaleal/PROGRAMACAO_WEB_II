@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: head('Acervo Digital')}"></head>
+<th:block th:replace="~{fragments/head :: head('Listar Acervo')}"></th:block>
 <body>
 
-<div th:replace="~{fragments/head :: header}"></div>
+<th:block th:replace="~{fragments/head :: header}"></th:block>
 
-<div class="container" >
-    <!-- CABEÇALHO - APENAS O BOTÃO -->
-    <div class="d-flex justify-content-end" pb-0 mg-0>
-        <a th:href="@{/acervo/create}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Novo Acervo
-        </a>
+<div class="container">
+    <!-- TÍTULO DA PÁGINA -->
+    <div class="row mb-4">
+        <div class="col">
+            <h1>Listagem do Acervo</h1>
+            <p class="text-muted">Gerencie seu catálogo de livros e materiais</p>
+        </div>
     </div>
 
     <!-- GRID DE LIVROS COM IMAGENS -->
@@ -70,11 +71,20 @@
             <i class="fas fa-plus"></i> Cadastrar primeiro item
         </a>
     </div>
+    
+    <!-- BOTÃO CADASTRAR (estilo professor) -->
+    <div class="row mt-4">
+        <div class="col">
+            <a th:href="@{/acervo/create}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Cadastrar Acervo
+            </a>
+        </div>
+    </div>
 </div>
 
-<div th:replace="~{fragments/darkmode-btn :: darkmode-btn}"></div>
-<div th:replace="~{fragments/footer :: footer}"></div>
-<div th:replace="~{fragments/scripts :: scripts}"></div>
+<th:block th:replace="~{fragments/darkmode-btn :: darkmode-btn}"></th:block>
+<th:block th:replace="~{fragments/footer :: footer}"></th:block>
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
 
 <style>
 /* Estilos adicionais para melhorar o visual */

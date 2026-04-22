@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="~{fragments/head :: head(${acervo.id} ? 'Editar Acervo' : 'Cadastrar Acervo')}"></th:block>
+<th:block th:replace="~{fragments/head :: head('Editar Acervo')}"></th:block>
 <body>
 
 <th:block th:replace="~{fragments/head :: header}"></th:block>
@@ -12,15 +12,14 @@
             <div class="form-container fade-in">
                 <div class="text-center mb-4">
                     <i class="fas fa-book" style="font-size: 3rem; color: var(--dourado-champagne);"></i>
-                    <h1 th:text="${acervo.id} ? '✏️ Editar Acervo' : '📖 Novo Acervo'" class="mt-3">
-                        Cadastrar Acervo
-                    </h1>
+                    <h1 class="mt-3">✏️ Editar Acervo</h1>
                     <p class="text-muted">
-                        Preencha os dados do material para adicionar ao catálogo
+                        Atualize os dados do material no catálogo
                     </p>
                 </div>
 
                 <form th:action="@{/acervo/save}" th:object="${acervo}" method="POST">
+                    <!-- Campo oculto necessário para edição -->
                     <input type="hidden" th:field="*{id}" />
 
                     <!-- Campo Título -->
@@ -152,7 +151,7 @@
                     <!-- Botões do Formulário -->
                     <div class="form-group text-center mt-5">
                         <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="fas fa-save"></i> Salvar Acervo
+                            <i class="fas fa-save"></i> Atualizar Acervo
                         </button>
                         <a href="/acervo" class="btn btn-outline-gold btn-lg ml-2">
                             <i class="fas fa-arrow-left"></i> Voltar
