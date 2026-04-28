@@ -23,6 +23,12 @@ public class UserController {
         return "user/registerUser";
     }
 
+    // Show Login Page
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     // Read Form data to save into DB
     @PostMapping("/saveUser")
     public String saveUser(

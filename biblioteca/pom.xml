@@ -18,7 +18,8 @@
     <properties>
         <java.version>18</java.version>
     </properties>
-<dependencies>
+
+    <dependencies>
         <!-- ACTUATOR -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -71,17 +72,23 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!-- SECURITY (NOVO - igual ao professor) -->
+        <!-- SECURITY -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- LOMBOK (NOVO - igual ao professor) -->
+        <!-- LOMBOK -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- NOVA DEPENDÊNCIA: Thymeleaf extras para Spring Security -->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
         </dependency>
     </dependencies>
 
