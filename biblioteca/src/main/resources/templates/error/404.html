@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{fragments/head :: head('Erro 404 - Página Não Encontrada')}"></th:block>
+<body>
+
+<th:block th:replace="~{fragments/head :: header}"></th:block>
+
+<div class="container">
+    <div class="d-flex align-items-center justify-content-center" style="min-height: 70vh;">
+        <div class="text-center">
+            <h1 class="display-1 text-danger">404</h1>
+            <h2 class="mb-3">Página Não Encontrada</h2>
+            <p class="lead mb-4">A página que você tentou acessar não existe ou foi movida.</p>
+            <a href="/acervo" class="btn btn-primary">
+                <i class="fas fa-home"></i> Voltar para o Acervo
+            </a>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{fragments/footer :: footer}"></th:block>
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+</body>
+</html>
