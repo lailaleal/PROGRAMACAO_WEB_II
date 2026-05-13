@@ -26,6 +26,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/register", "/saveUser", "/login", "/css/**", "/imagens/**").permitAll()
+                .requestMatchers("/acervo/create", "/acervo/edit/**", "/acervo/delete/**").hasAuthority("Admin")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
