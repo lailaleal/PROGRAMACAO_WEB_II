@@ -35,9 +35,9 @@ public class UserController {
             @ModelAttribute User user,
             Model model) {
         Integer id = userService.saveUser(user);
-        String message = "User '" + id + "' saved successfully !";
+        String message = "User '" + id + "' salvo com sucesso !";
         model.addAttribute("msg", message);
-        return "user/registerUser";
+        return "redirect:/login";
     }
 
     @GetMapping("/accessDenied")
